@@ -2,9 +2,15 @@ package com.codewithmosh;
 
 public class Main {
 
+    public static byte MONTHS_IN_YEAR = 12;
+
     public static void main(String[] args) {
-        var mortgageCalculator = new mortgageCalculator();
-        mortgageCalculator.start();
+        int principal = (int) Console.readNumber("Principal: ", 1000, 1_000_000);
+        float annualInterest = (float) Console.readNumber("Annual Interest Rate: ", 1, 30);
+        byte years = (byte) Console.readNumber("Period (Years): ", 1, 30);
+
+        MortgageReport.printMortgage(principal, annualInterest, years);
+        MortgageReport.printPaymentSchedule(principal, annualInterest, years);
     }
 
 }

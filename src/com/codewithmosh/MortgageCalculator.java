@@ -1,6 +1,6 @@
 package com.codewithmosh;
 
-public class mortgageCalculator {
+public class MortgageCalculator {
     final byte MONTHS_IN_YEAR = 12;
     final byte PERCENT = 100;
 
@@ -8,17 +8,14 @@ public class mortgageCalculator {
     private float annualInterest;
     private byte years;
 
-    public void start() {
-        principal = (int) Console.readNumber("Principal: ", 1000, 1_000_000);
-        annualInterest = (float) Console.readNumber("Annual Interest Rate: ", 1, 30);
-        years = (byte) Console.readNumber("Period (Years): ", 1, 30);
-
-        MortgageReport.printMortgage(this);
-        MortgageReport.printPaymentSchedule(this, MONTHS_IN_YEAR, years);
+    public MortgageCalculator(int principal, float annualInterest, byte years) {
+        this.annualInterest = annualInterest;
+        this.principal = principal;
+        this.years = years;
     }
 
     public double calculateMortgage() {
-        float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
+        float monthlyInterest = annualInterest / PERCENT / Main.MONTHS_IN_YEAR;
         float numberOfPayments = years * MONTHS_IN_YEAR;
 
         return principal
@@ -29,8 +26,8 @@ public class mortgageCalculator {
     public double calculateBalance(
             short numberOfPaymentsMade
     ) {
-        float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
-        float numberOfPayments = years * MONTHS_IN_YEAR;
+        float monthlyInterest = annualInterest / PERCENT / Main.MONTHS_IN_YEAR;
+        float numberOfPayments = years * Main.MONTHS_IN_YEAR;
 
         return principal
                 * (Math.pow(1 + monthlyInterest, numberOfPayments) - Math.pow(1 + monthlyInterest, numberOfPaymentsMade))
