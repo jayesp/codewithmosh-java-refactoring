@@ -1,7 +1,5 @@
 package com.codewithmosh;
 
-import java.text.NumberFormat;
-
 public class mortgageCalculator {
     final byte MONTHS_IN_YEAR = 12;
     final byte PERCENT = 100;
@@ -15,20 +13,11 @@ public class mortgageCalculator {
         annualInterest = (float) Console.readNumber("Annual Interest Rate: ", 1, 30);
         years = (byte) Console.readNumber("Period (Years): ", 1, 30);
 
-        printMortgage();
-        printPaymentSchedule();
+        MortgageReport.printMortgage(this);
+        MortgageReport.printPaymentSchedule(this, MONTHS_IN_YEAR, years);
     }
 
-    private void printMortgage() {
-        double mortgage = calculateMortgage();
-        String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
-        System.out.println();
-        System.out.println("MORTGAGE");
-        System.out.println("--------");
-        System.out.println("Monthly Payments: " + mortgageFormatted);
-    }
-
-    private double calculateMortgage() {
+    public double calculateMortgage() {
         float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
         float numberOfPayments = years * MONTHS_IN_YEAR;
 
@@ -37,17 +26,7 @@ public class mortgageCalculator {
                 / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
     }
 
-    private void printPaymentSchedule() {
-        System.out.println();
-        System.out.println("PAYMENT SCHEDULE");
-        System.out.println("----------------");
-        for (short month = 1; month <= years * MONTHS_IN_YEAR; month++) {
-            double balance = calculateBalance(month);
-            System.out.println(NumberFormat.getCurrencyInstance().format(balance));
-        }
-    }
-
-    private double calculateBalance(
+    public double calculateBalance(
             short numberOfPaymentsMade
     ) {
         float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
