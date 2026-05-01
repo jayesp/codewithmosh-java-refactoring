@@ -1,7 +1,6 @@
 package com.codewithmosh;
 
 import java.text.NumberFormat;
-import java.util.Scanner;
 
 public class mortgageCalculator {
     final byte MONTHS_IN_YEAR = 12;
@@ -12,25 +11,12 @@ public class mortgageCalculator {
     private byte years;
 
     public void start() {
-        principal = (int) readNumber("Principal: ", 1000, 1_000_000);
-        annualInterest = (float) readNumber("Annual Interest Rate: ", 1, 30);
-        years = (byte) readNumber("Period (Years): ", 1, 30);
+        principal = (int) Console.readNumber("Principal: ", 1000, 1_000_000);
+        annualInterest = (float) Console.readNumber("Annual Interest Rate: ", 1, 30);
+        years = (byte) Console.readNumber("Period (Years): ", 1, 30);
 
         printMortgage();
         printPaymentSchedule();
-    }
-
-    private double readNumber(String prompt, double min, double max) {
-        Scanner scanner = new Scanner(System.in);
-        double value;
-        while (true) {
-            System.out.print(prompt);
-            value = scanner.nextFloat();
-            if (value >= min && value <= max)
-                break;
-            System.out.println("Enter a value between " + min + " and " + max);
-        }
-        return value;
     }
 
     private void printMortgage() {
