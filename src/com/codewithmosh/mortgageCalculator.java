@@ -42,6 +42,15 @@ public class mortgageCalculator {
         System.out.println("Monthly Payments: " + mortgageFormatted);
     }
 
+    private double calculateMortgage() {
+        float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
+        float numberOfPayments = years * MONTHS_IN_YEAR;
+
+        return principal
+                * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments))
+                / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
+    }
+
     private void printPaymentSchedule() {
         System.out.println();
         System.out.println("PAYMENT SCHEDULE");
@@ -60,15 +69,6 @@ public class mortgageCalculator {
 
         return principal
                 * (Math.pow(1 + monthlyInterest, numberOfPayments) - Math.pow(1 + monthlyInterest, numberOfPaymentsMade))
-                / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
-    }
-
-    private double calculateMortgage() {
-        float monthlyInterest = annualInterest / PERCENT / MONTHS_IN_YEAR;
-        float numberOfPayments = years * MONTHS_IN_YEAR;
-
-        return principal
-                * (monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPayments))
                 / (Math.pow(1 + monthlyInterest, numberOfPayments) - 1);
     }
 }
